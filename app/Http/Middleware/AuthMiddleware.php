@@ -16,16 +16,12 @@ class AuthMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::guard('admin')->check())
+        if(Auth::check())
         {
-            $user = auth()->guard('admin')->user();
+            $user = auth()->user();
             if($user->role == 0)
             {
                 return redirect()->route('adminDashboard');
-            }
-            if($user->role == 1)
-            {
-                return redirect()->route('officeDashboard');
             }
         }
         return $next($request);

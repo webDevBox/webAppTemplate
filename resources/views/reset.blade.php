@@ -162,55 +162,15 @@
             <p class="alert alert-success">{{ Session::get('success') }}
             </p>
         @endif
-        <form method="POST" action="{{ route('authLogin') }}" class="form-signin">
+        @if ($errors->has('email'))
+        <p class="alert alert-danger">{{ $errors->first('email') }}</p>
+        @endif
+        
+        <form action="{{ route('UpdatePassword') }}" method="POST" class="">
             @csrf
-            <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"> Sign in</h1>
-
-            <label for="inputEmail">Enter Email</label>
-            <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email address" required>
-            <label for="inputPassword">Enter Password</label>
-            <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Enter Password"
-                required>
-            <hr>
-
-            <button class="btn btn-success btn-block" type="submit"><i class="fas fa-sign-in-alt"></i> Sign in</button>
-            <a href="#" id="forgot_pswd">Forgot password?</a>
-            <p>Don't have an account!</p>
-            <button class="btn btn-primary btn-block" type="button" id="btn-signup"><i
-                    class="fas fa-user-plus"></i> Sign up New Account</button>
-        </form>
-
-        <form action="{{ route('reset') }}" method="POST" class="form-reset">
-            @csrf
-            <input type="email" id="resetEmail" name="email" class="form-control" placeholder="Email address" required=""
-                >
-            <button class="btn btn-primary btn-block" type="submit">Reset Password</button>
-            <a href="#" id="cancel_reset"><i class="fas fa-angle-left"></i> Back</a>
-        </form>
-
-        <form action="{{ route('store') }}" method="POST" class="form-signup">
-            @csrf
-            {{-- <div class="social-login">
-                <button class="btn facebook-btn social-btn" type="button"><span><i class="fab fa-facebook-f"></i> Sign
-                        up with Facebook</span> </button>
-            </div>
-            <div class="social-login">
-                <button class="btn google-btn social-btn" type="button"><span><i class="fab fa-google-plus-g"></i> Sign
-                        up with Google+</span> </button>
-            </div>
-
-            <p style="text-align:center">OR</p> --}}
-            <label for="user-name">Enter Your Name</label>
-            <input type="text" id="user-name" value="{{ old('name') }}" name="name" class="form-control" placeholder="Full name" required="" >
-            @if ($errors->has('name'))
-                <p style="color:red;">{{ $errors->first('name') }}</p>
-            @endif
-            <label for="user-email">Enter Your Email</label>
-            <input type="email" id="user-email" value="{{ old('email') }}" name="email" class="form-control" placeholder="Email address" required >
-            @if ($errors->has('email'))
-                <p style="color:red;">{{ $errors->first('email') }}</p>
-            @endif
-            <label for="user-pass">Enter Your Password</label>
+            
+            <input type="hidden" id="user-email" value="{{ $email }}" name="email" class="form-control" placeholder="Email address" required >
+            <label for="user-pass">New Your Password</label>
             <input type="password" id="user-pass" name="password" class="form-control" placeholder="Password" required >
             @if ($errors->has('password'))
                 <p style="color:red;">{{ $errors->first('password') }}</p>
@@ -218,19 +178,8 @@
             <label for="user-pass">Re Enter Password</label>
             <input type="password" id="user-repeatpass" name="password_confirmation" class="form-control" placeholder="Repeat Password" required>
 
-            <label>Select Account Type</label>
-            <div class="row container-fluid" style="margin-left: 5px">
-                <div class="form-group">
-                    <label for="client">Client</label>
-                    <input type="radio" id="client" name="role" value="2">
-                </div>
-                <div class="form-group" style="margin-left: 20px">
-                    <label for="earner">Earner</label>
-                    <input type="radio" id="earner" name="role" value="3">
-                </div>
-            </div>
-            <button class="btn btn-primary btn-block" type="submit"><i class="fas fa-user-plus"></i> Sign Up</button>
-            <a href="#" id="cancel_signup"><i class="fas fa-angle-left"></i> Back</a>
+            
+            <button class="btn btn-primary btn-block" type="submit"> Change Password</button>
         </form>
         <br>
 
@@ -243,7 +192,7 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
     </script>
     <script src="/script.js"></script>
-    <script>
+    {{-- <script>
         function toggleResetPswd(e){
     e.preventDefault();
     $('#logreg-forms .form-signin').toggle() // display:block or none
@@ -274,7 +223,7 @@ $(()=>{
         $('#btn-signup').click()
     }
     });
-</script>
+</script> --}}
 </body>
 
 </html>

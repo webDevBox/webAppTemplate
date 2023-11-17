@@ -16,10 +16,13 @@ use App\Http\Controllers\AdminController;
 |
 */
 
-Route::get('verify-email/{email}/{code}',[AuthController::class ,'verify'])->name('verifyEmail');
 
 Route::middleware(['auth.login'])->group(function () {
     Route::get('/',[AuthController::class , 'index'])->name('loginForm');
+    Route::get('verify-email/{email}/{code}',[AuthController::class ,'verify'])->name('verifyEmail');
+    Route::post('resetPassword',[AuthController::class ,'reset'])->name('reset');
+    Route::post('UpdatePassword',[AuthController::class ,'UpdatePassword'])->name('UpdatePassword');
+    Route::get('changePassword/{email}',[AuthController::class ,'resetPassword'])->name('resetPassword');
     Route::post('/authenticate',[AuthController::class , 'authLogin'])->name('authLogin');
     Route::post('/store',[AuthController::class , 'store'])->name('store');
 });
